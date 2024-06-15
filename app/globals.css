@@ -1,12 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap");
 
 :root {
-  --darkBackground: #181818;
+  --darkBackground: #191919;
 }
 
-body {
+* {
   background-color: var(--darkBackground);
   color: white;
+  font-family: "Bree Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  @apply text-2xl font-bold;
+}
+
+p {
+  @apply text-xs;
 }
