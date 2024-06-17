@@ -1,26 +1,29 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import githubIcon from "@/public/assets/github-icon.svg"
+import linkedinIcon from "@/public/assets/linkedin-icon.svg"
+import notionIcon from "@/public/assets/notion-icon.svg"
 
 const Footer = () => {
   return (
-    <div className="flex justify-between mb-1">
+    <section className="flex justify-between mb-1 mt-3">
         <Link href="https://jordicastro.github.io/">
             <p>Jordi Castro</p>
         </Link>
 
         <div className='flex gap-2'>
             <Link href="https://github.com/jordicastro" >
-                <Image src="public/assets/github_logo.svg" alt="GitHub Logo" width={30} height={30} />
+                <Image src={githubIcon} alt="GitHub Logo" width={24} height={24} />
             </Link>
             <Link href="https://www.linkedin.com/in/jordicastr0/" >
-                <Image src="public/assets/linkedin_logo.svg" alt="LinkedIn Logo" width={30} height={30} />
+                <Image src={linkedinIcon} alt="LinkedIn Logo" width={24} height={24} />
             </Link>
-            <Link href="https://almond-dill-2de.notion.site/Documentation-for-note-app-ebe81c178d484b49b018b1532d448ebe?pvs=4" >
-                <Image src="public/assets/notion_logo.svg" alt="Notion Logo" width={30} height={30} />
+            <Link href="https://almond-dill-2de.notion.site/Documentation-for-note-app-ebe81c178d484b49b018b1532d448ebe" >
+                <Image src={notionIcon} alt="Notion Logo" width={24} height={24} />
             </Link>
         </div>
-    </div>
+    </section>
   )
 }
 

@@ -1,49 +1,72 @@
+"use client";
+
 import React from 'react'
 import Line from '@/components/Line'
 import Image from 'next/image'
-import ReactIcon from "@/public/assets/ReactNotes-logo.svg"
-import LectureNotesIcon from "@/public/assets/LectureNotes-logo.svg"
+
 import Carousel from './Carousel'
+import listButton from "@/public/assets/list-button.svg"
+import gridButton from "@/public/assets/grid-button.svg"
+import PageList from './PageList'
+
+import { useState, useEffect } from 'react'
 
 const Hero = () => {
-    const notes = [
-        {
-            icon: "../public/assets/LectureNotes-logo.svg",
-            title: "Lecture Notes Spring 2024"
-        },
-        {
-            icon: {ReactIcon},
-            title: "React Notes"
 
-        },
-        {
-            icon: "Markdown-icon.svg",
-            title: "Markdown Tutorial"
-        },
-        {
-            icon: "empty-page.svg",
-            title: "Projects"
-        }
+    const [view, setView] = useState('list')
+    const greetings = [
+        "Good morning, ",
+        "Good afternoon, ",
+        "Good evening, "
     ]
+
+    const handleListButtonClick = () => { setView('list') }
+    const handleGridButtonClick = () => { setView('grid') }
+    const [greeting, setGreeting] = useState(greetings[0])
+    const [name, setName] = useState('Jordi')
+
+
+    useEffect( () => {
+        const date = new Date()
+        const hour = date.getHours()
+
+        console.log(hour)
+        if (hour >= 5 && hour < 12) {
+            setGreeting(greetings[0])
+        } else if (hour >= 12 && hour < 18) {
+            setGreeting(greetings[1])
+        } else {
+            setGreeting(greetings[2])
+        }
+    }, [])
+
+
 
   return (
     <>
-        <h1 className="flex justify-center flex-col items-center my-7">Good afternoon, Jordi</h1>
+        {/* conditional greeting  */}
+        <div className="flex justify-center flex-row items-center space-x-3 my-7 mt-24">
+            <h1>{greeting} </h1>
+            <h1>{name}</h1>
+        </div>
         <section className="space-y-3">
-            <button className="border border-slate-500">ListorGridView</button>
-            <Line />
 
-            <div className="border border-slate-500 mx-7 w-auto h-48 rounded-xl ">
-                {notes.map((note, index) => (
-                    <div key={index} className="flex justify-start items-center note-item hover:bg-dark-200 ">
-                        <Image src={`/${note.icon}`} alt="icon" width={40} height={40} />
-                        <p className="mx-2">{note.title}</p>
-                    </div>
-                ))}
+            {/* list-or-grid view  */}
+            <div>
+                <button onClick={handleListButtonClick} className={`size-8 ${view === 'list' && 'brightness-75'}  hover:brightness-75`} >
+                    <Image src={listButton} alt="List Button" />
+                </button>
+                <button onClick={handleGridButtonClick} className={`size-8 ${view === 'grid' && 'brightness-75'}  hover:brightness-75`} >
+                    <Image src={gridButton} alt="Grid Button" />
+                </button>
             </div>
 
+            <Line />
+            
+            {view === 'list' ? <PageList /> : <Carousel />}
+
+
         </section>
-        <Carousel />
 
     </>
   )

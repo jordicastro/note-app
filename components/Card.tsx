@@ -1,11 +1,33 @@
 import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const Card = () => {
+interface CardProps {
+  icon: {
+    src: string;
+    height: number;
+    width: number;
+    blurDataURL?: string;
+    blurWidth?: number;
+    blurHeight?: number;
+  };
+  title: string,
+  _id: string
+}
+
+const Card: React.FC<CardProps> = ({icon, title, _id}) => {
   return (
-    <div className="flex flex-col items-start justify-start p-2 mr-4 border border-dark-300 rounded-xl w-24 h-full">
-        <div className="my-1">icon</div>
-        <p>Lecture Notes Spring 2024</p>
-    </div>
+    <Link href={`/notes/${_id}`} className="flex flex-col items-start justify-start p-2 mr-4 rounded-xl w-64 h-full space-y-4 hover:border border-dark-300 ">
+          <div className="my-1">
+          <Image className="size-5" 
+              src={icon.src} 
+              alt={title} 
+              height={25} 
+              width={25} 
+            />
+          </div>
+          <p>{title}</p>
+    </Link>
   )
 }
 
