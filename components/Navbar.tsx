@@ -17,13 +17,15 @@ const Navbar = () => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+    console.log('darkMode Navbar state:', darkMode)
+    // changeTheme(darkMode);
   }
 
 
 
   return (
     <div className={`${darkMode && "dark"}`}>
-    <nav className="flex justify-between fixed w-full mx-auto items-center py-1 pr-[10%] bg-transparent dark:bg-sky-500">
+    <nav className="flex justify-between fixed w-full mx-auto items-center py-1 pr-[10%] bg-transparent dark:bg-dark-200">
         <Link href={"/"} className="bg-transparent">
           <HomeIcon size={24}/>
         </Link>

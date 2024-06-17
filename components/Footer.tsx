@@ -6,6 +6,7 @@ import linkedinIcon from "@/public/assets/linkedin-icon.svg"
 import notionIcon from "@/public/assets/notion-icon.svg"
 
 const Footer = () => {
+
   return (
     <section className="flex justify-between mb-1 mt-3">
         <Link href="https://jordicastro.github.io/">
