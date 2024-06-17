@@ -39,8 +39,8 @@ const PageList = () => {
                 {notes.map((note, index) => (
                     <div key={index}>
                         <Link href={`/notes/${note._id}`}>
-                            <div className="flex justify-start items-center my-2 note-item hover:bg-dark-200 hover:underline ">
-                                <Image className="size-5 hover:bg-dark-200" src={note.icon} alt="icon" width={25} height={25} />
+                            <div className="flex justify-start items-center my-2 note-item hover:bg-dark-300 hover:underline ">
+                                <Image className="size-5 hover:bg-dark-300" src={note.icon} alt="icon" width={25} height={25} />
                                 <p className="mx-3 ">{note.title}</p>
                             </div>
                         </Link>

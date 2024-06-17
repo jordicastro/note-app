@@ -16,12 +16,14 @@ const config: Config = {
       colors: {
         dark: {
           100: "#191919",
-          200: "#262626",
-          300: "#47DBF9",
+          200: "#242424",
+          300: "#262626",
+          400: "#47DBF9",
         }
       }
     },
   },
   plugins: [],
+  darkMode: "class",
 };
 export default config;
