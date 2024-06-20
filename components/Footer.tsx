@@ -10,18 +10,18 @@ const Footer = () => {
   return (
     <section className="flex justify-between mb-1 mt-3">
         <Link href="https://jordicastro.github.io/">
-            <p>Jordi Castro</p>
+            <h6>Jordi Castro</h6>
         </Link>
 
         <div className='flex gap-2'>
             <Link href="https://github.com/jordicastro" >
-                <Image src={githubIcon} alt="GitHub Logo" width={24} height={24} />
+                <Image src={githubIcon} alt="GitHub Logo" width={16} height={16} />
             </Link>
             <Link href="https://www.linkedin.com/in/jordicastr0/" >
-                <Image src={linkedinIcon} alt="LinkedIn Logo" width={24} height={24} />
+                <Image src={linkedinIcon} alt="LinkedIn Logo" width={16} height={16} />
             </Link>
             <Link href="https://almond-dill-2de.notion.site/Documentation-for-note-app-ebe81c178d484b49b018b1532d448ebe" >
-                <Image src={notionIcon} alt="Notion Logo" width={24} height={24} />
+                <Image src={notionIcon} alt="Notion Logo" width={16} height={16} />
             </Link>
         </div>
     </section>

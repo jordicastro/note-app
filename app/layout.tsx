@@ -20,10 +20,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`h-full ${inter.className}`}>
         <div className="flex flex-col min-h-screen px-[5%] mx-auto border border-slate-400">
-          <Navbar />
-          <div className="mt-8">
+          <div className="">
             {children}
-            <Footer />
           </div>
         </div>
       </body>

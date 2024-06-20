@@ -9,9 +9,12 @@ import { LuSun as Sun } from "react-icons/lu";
 import Image from 'next/image'
 import { useState } from 'react'
 
+interface NavbarProps {
+  icon?: string,
+  title?: string
+}
 
-
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({icon, title}) => {
 
   const [darkMode, setDarkMode] = useState(true); 
 
@@ -21,23 +24,30 @@ const Navbar = () => {
     // changeTheme(darkMode);
   }
 
-
-
   return (
     <div className={`${darkMode && "dark"}`}>
-    <nav className="flex justify-between fixed w-full mx-auto items-center py-1 pr-[10%] bg-transparent dark:bg-dark-200">
-        <Link href={"/"} className="bg-transparent">
-          <HomeIcon size={24}/>
-        </Link>
-        <div className="flex justify-center items-center bg-transparent">
-            <button onClick={toggleDarkMode} className="w-8 h-auto mx-2">
-                {darkMode ? <Moon size={20}/> : <Sun size={20}/> }
-            </button>
-            <button className="hover:brightness-75 bg-transparent">
-                <MenuIcon size={24}/>
-            </button>
-        </div>
-    </nav>
+      <nav className="flex justify-between w-full mx-auto items-center py-1 pr-[10%] bg-transparent dark:bg-dark-200">
+            <div className="flex gap-2 bg-transparent">
+          <Link href={"/"} className="bg-transparent">
+              <HomeIcon size={18}/>
+          </Link>
+              {icon && title && 
+              <>
+                <h6>/</h6>
+                <h6>{icon}</h6>
+                <h6>{title}</h6>
+              </>
+              }
+            </div>
+          <div className="flex justify-center items-center bg-transparent">
+              <button onClick={toggleDarkMode} className="w-8 h-auto mx-2">
+                  {darkMode ? <Moon size={18}/> : <Sun size={18}/> }
+              </button>
+              <button className="hover:brightness-75 bg-transparent">
+                  <MenuIcon size={18}/>
+              </button>
+          </div>
+      </nav>
     </div>
   )
 }

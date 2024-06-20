@@ -1,5 +1,4 @@
 "use client";
-
 import React from 'react'
 import Line from '@/components/Line'
 import Image from 'next/image'
@@ -8,10 +7,15 @@ import Carousel from './Carousel'
 import listButton from "@/public/assets/list-button.svg"
 import gridButton from "@/public/assets/grid-button.svg"
 import PageList from './PageList'
+import { Note } from '@/types/Note'
 
 import { useState, useEffect } from 'react'
 
-const Hero = () => {
+interface HeroProps {
+    notes: Note[];
+}
+
+const Hero:React.FC<HeroProps> = ({notes}) => {
 
     const [view, setView] = useState('list')
     const greetings = [
@@ -63,7 +67,7 @@ const Hero = () => {
 
             <Line />
             
-            {view === 'list' ? <PageList /> : <Carousel />}
+            {view === 'list' ? <PageList notes={notes} /> : <Carousel notes={notes}/>}
 
 
         </section>
