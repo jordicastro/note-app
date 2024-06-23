@@ -1,35 +1,35 @@
-import React from 'react'
-import Hero from '@/components/Hero'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import React from "react";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const getNotes = async () => {
   try {
-      const res = await fetch("http://localhost:3000/api/notes", {
-          cache: "no-store"
-      })
+    const res = await fetch("http://localhost:3000/api/notes", {
+      cache: "no-store",
+    });
 
-      if (!res.ok) {
-          throw new Error("Failed to fetch notes")
-      }
+    if (!res.ok) {
+      throw new Error("Failed to fetch notes");
+    }
 
-      return res.json()
-
+    return res.json();
   } catch (error) {
-      console.error("Error loading notes ", error)
+    console.error("Error loading notes ", error);
   }
-}
+};
 
-const Home = async() => {
-  const {notes} = await getNotes();
+const Home = async () => {
+  const { notes } = await getNotes();
   console.log(notes);
   return (
     <>
-      <Navbar/>
-      <Hero notes={notes}/>
+      <Navbar />
+      <Hero notes={notes} />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

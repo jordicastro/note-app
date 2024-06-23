@@ -18,7 +18,7 @@ const Carousel: React.FC<CarouselProps> = ({ notes }) => {
 
   return (
     <>
-      <div className="flex justify-center items-center border border-slate-500 rounded-xl w-auto h-64 my-3 gap-8">
+      <div className="flex justify-center items-centerrounded-xl w-auto h-64 my-3 gap-8">
         {notes.map((note: Note, index: number) => (
           <Card key={index} title={note.title} icon={note.icon}  _id={note._id} />
         ))}

@@ -39,7 +39,7 @@ const TextEditor: React.FC<TextEditorProps> = ({initialContent, id}) => {
     console.log(content)
   return (
     <div className="border border-slate-500 mt-6">
-        <textarea className="w-full h-60 p-2 border border-slate-300"
+        <textarea className="w-full h-64 p-2 border border-slate-300"
 
         value={content}
         onChange={handleChange}
