@@ -24,11 +24,11 @@ const Home = async () => {
   const { notes } = await getNotes();
   console.log(notes);
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <Hero notes={notes} />
       <Footer />
-    </>
+    </div>
   );
 };
 

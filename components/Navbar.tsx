@@ -45,17 +45,12 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ icon, title }) => {
   const [darkMode, setDarkMode] = useState(true);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    console.log("darkMode Navbar state:", darkMode);
-    // changeTheme(darkMode);
-  };
 
   let menuFonts = fonts.slice(0, 3);
 
   return (
     <div>
-      <nav className="flex justify-between w-full mx-auto items-center fixed top-0 py-1 pr-[10%] bg-transparent z-10">
+      <nav className="flex justify-between items-center w-full mx-auto fixed top-0 py-2 px-3 bg-transparent z-10">
         <div className="flex gap-2 bg-transparent">
           <Link href={"/"} className="bg-transparent">
             <HomeIcon size={20} />

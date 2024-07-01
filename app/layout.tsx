@@ -27,8 +27,8 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="note-app-theme"
         >
-          <div className="flex flex-col min-h-screen px-[5%] mx-auto">
-            <div className="">{children}</div>
+          <div className="">
+            <div>{children}</div>
           </div>
         </ThemeProvider>
       </body>

@@ -1,34 +1,52 @@
 import React from 'react'
 import Card from './Card'
-
-import reactIcon from "@/public/assets/react-icon.svg"
-import fireIcon from "@/public/assets/fire-icon.png"
-import markdownIcon from "@/public/assets/markdown-icon.svg"
-import emptyPageIcon from "@/public/assets/empty-page-icon.svg"
-import { IoIosArrowDroprightCircle as RightArrow } from "react-icons/io";
-import Link from 'next/link'
-import Image from 'next/image'
 import { Note } from '@/types/Note'
+
+import {
+  Carousel as C,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 interface CarouselProps {
   notes: Note[];
 }
 
+const chunkNotes = (notes: Note[], chunkSize: number) => {
+  const notesChunks = [];
+
+  for (let i = 0; i < notes.length; i += chunkSize) {
+    notesChunks.push(notes.slice(i, i + chunkSize));
+  }
+  return notesChunks;
+}
+
+
 const Carousel: React.FC<CarouselProps> = ({ notes }) => {
+
+  const notesChunks = chunkNotes(notes, 4);
 
   return (
     <>
-      <div className="flex justify-center items-centerrounded-xl w-auto h-64 my-3 gap-8">
-        {notes.map((note: Note, index: number) => (
-          <Card key={index} title={note.title} icon={note.icon}  _id={note._id} />
-        ))}
-      <button className="">
-        <RightArrow size={24} className="hover:brightness-75"/>
-      </button>
-        
-      </div>
+      <C>
+        <CarouselContent>
+          {notesChunks.map((chunk, index) => (
+            <CarouselItem key={index}>
+              <div className='flex justify-center items-center gap-[4vw]'>
+                {chunk.map((note) => (
+                  <Card key={index} title={note.title} icon={note.icon}  _id={note._id} />
+                ))}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </C>
     </>
   )
 }
 
-export default Carousel
+export default Carousel;

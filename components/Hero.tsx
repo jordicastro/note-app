@@ -45,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
   }, []);
 
   return (
-    <>
+    <div className="px-[5%]">
       {/* conditional greeting  */}
       <div className="flex justify-center flex-row items-center space-x-3 my-7 mt-24">
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
@@ -91,7 +91,7 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
           <Carousel notes={notes} />
         )}
       </section>
-    </>
+    </div>
   );
 };
 
