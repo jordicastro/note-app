@@ -21,12 +21,6 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
   const [view, setView] = useState("list");
   const greetings = ["Good morning, ", "Good afternoon, ", "Good evening, "];
 
-  const handleListButtonClick = () => {
-    setView("list");
-  };
-  const handleGridButtonClick = () => {
-    setView("grid");
-  };
   const [greeting, setGreeting] = useState(greetings[0]);
   const [name, setName] = useState("Jordi");
 
@@ -57,26 +51,26 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
         {/* list-or-grid view  */}
         <div className="flex">
           <button
-            onClick={handleListButtonClick}
+            onClick={() => {setView("list")}}
             className={`size-8 ${view === "list" && "brightness-50"} active:scale-95  object-contain dark:hidden`}
           >
             <Image src={listButton} alt="List Button" />
           </button>
           <button
-            onClick={handleGridButtonClick}
+            onClick={() => setView("grid")}
             className={`size-8 ${view === "grid" && "brightness-50"} active:scale-95  object-contain dark:hidden`}
           >
             <Image src={gridButton} alt="Grid Button" />
           </button>
 
           <button
-            onClick={handleListButtonClick}
+            onClick={() => {setView("list")}}
             className={`size-8 ${view === "list" && "brightness-50"}  object-contain hidden dark:block`}
           >
             <Image src={listButtonDark} alt="List Button Dark" />
           </button>
           <button
-            onClick={handleGridButtonClick}
+            onClick={() => setView("grid")}
             className={`size-8 ${view === "grid" && "brightness-50"}  object-contain hidden dark:block`}
           >
             <Image src={gridButtonDark} alt="Grid Button Dark" />
