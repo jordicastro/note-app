@@ -11,7 +11,7 @@ import notionIconDark from "@/public/assets/notion-icon-dark.svg"
 const Footer = () => {
 
   return (
-    <section className="flex justify-between items-center w-full mb-1 fixed bottom-0 px-3 py-1 z-10 bg-transparent">
+    <section className="flex justify-between items-center w-full mb-1 mt-[20vw] px-3 py-1 z-10 bg-transparent">
         <Link href="https://jordicastro.github.io/">
             <h6>Jordi Castro</h6>
         </Link>

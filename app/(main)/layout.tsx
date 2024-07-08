@@ -1,9 +1,9 @@
-import Sidebar from "@/components/Sidebar"
+import Navigation from "@/components/Navigation"
 
 const MainLayout = ({children}: {children: React.ReactNode}) => {
   return (
     <div className="border flex dark:bg-[#1F1F1F]">
-        <Sidebar />
+        <Navigation />
         <main className="flex-1 h-full overflow-y-auto">
           {children}
         </main>

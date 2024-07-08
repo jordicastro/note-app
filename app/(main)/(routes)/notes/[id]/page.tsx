@@ -47,7 +47,7 @@ const NotePage = ({}) => {
     <div className="pb-40 min-h-screen">
       {note && (
         <div>
-          <Navbar icon={note.icon} title={note.title} />
+          {/* <Navbar icon={note.icon} title={note.title} /> */}
           <div className="md:max-w-4xl lg:max-w-5xl mx-auto space-y-16">
             <NoteTitle icon={note.icon} title={note.title} />
             <Editor id={note._id} initialContent={note.content} onChange={debounceOnChange} />

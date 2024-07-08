@@ -1,9 +1,11 @@
+import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +29,10 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="note-app-theme"
         >
-          <div className="">
+          <div className="hidden"><ModeToggle/></div>
+            <Toaster />
             <div>{children}</div>
-          </div>
+
         </ThemeProvider>
       </body>
     </html>

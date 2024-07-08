@@ -5,7 +5,6 @@ import {
   ChevronsLeft,
   MenuIcon,
   Plus,
-  PlusCircle,
   Search,
   Settings,
   Trash,
@@ -15,18 +14,44 @@ import { useMediaQuery } from "usehooks-ts";
 import { useParams, usePathname } from "next/navigation";
 
 import Navbar from "./Navbar";
+import UserItem from "./UserItem";
 import { useRouter } from "next/navigation";
+import { Note } from "@/types/Note";
+import Item from "./Item";
+import Link from "next/link";
+
+
+
+
 
 const Navigation = () => {
 
   const pathname = usePathname();
   const params = useParams();
+  const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 480px)"); // for mobile
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
   const navbarRef = useRef<ElementRef<"nav">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  useEffect( () => {
+    const getNotes = async () => {
+      const res = await fetch(`http://localhost:3000/api/notes`, {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch notes");
+      }
+       const data = await res.json();
+
+       setNotes(data.notes);
+    }
+
+    getNotes();
+  }, [])
 
   useEffect(() => {
     if (isMobile) {
@@ -103,13 +128,30 @@ const Navigation = () => {
     }
   };
 
+  const createPage = async () => {
+    const res = await fetch("http://localhost:3000/api/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: "Untitled", icon: "📄", content: "" }),
+    })
+    if (!res.ok) {
+      throw new Error("Failed to create note");
+    }
+
+    const data = await res.json();
+
+    router.push(`/notes/${data.note._id}`);
+  }
+
 
   return (
     <>
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar bg-secondary overflow-y-auto relative flex w-60 flex-col z-[999]",
+          "group/sidebar bg-secondary dark:bg-[#242424] overflow-y-auto relative flex w-60 flex-col z-[999]",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0",
         )}
@@ -125,14 +167,25 @@ const Navigation = () => {
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-            <p>
-                Action Items
-            </p>
+            <UserItem />
+            <Item
+              onClick={createPage}
+              label="New page"
+              icon={Plus}
+            />
         </div>
         <div className="mt-4">
-            <p>
+            <p className="px-2 text-muted-foreground font-bold" >
                 Notes
             </p>
+            {notes?.map((note) => (
+              <div key={note._id} className="hover:border border-primary/5 hover:bg-primary/5">
+                  <Link href={`/notes/${note._id}`} className="flex items-center gap-x-2 px-2 py-1 ">
+                    <p className="text-sm">{note.icon}</p>
+                    <p className="text-sm text-muted-foreground">{note.title}</p>
+                  </Link>
+              </div>
+            ) )}
         </div>
         <div
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
@@ -148,7 +201,13 @@ const Navigation = () => {
           isMobile && "left-0 w-full",
         )}
       >
-          <nav className="bg-transparent px-3 py-4 w-full">
+        {!!params.id ? (
+            <Navbar
+                isCollapsed={isCollapsed}
+                onResetWidth={resetWidth}
+            />
+        ) : (
+            <nav className="bg-transparent px-3 py-4 w-full">
             {isCollapsed && (
               <MenuIcon
                 onClick={resetWidth}
@@ -157,6 +216,7 @@ const Navigation = () => {
               />
             )}
           </nav>
+        )}
       </nav>
     </>
   );

@@ -6,8 +6,13 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
     const { title, icon, content } = await req.json();
     await connectMongoDB();
-    await Note.create({ title, icon, content });
-    return NextResponse.json({message: "Note created"}, {status: 201})
+    const newNote = await Note.create({ title, icon, content });
+    const _id = newNote._id.toString();
+    return NextResponse.json({
+            message: "Note created",
+            note: { _id: `${_id}` }
+        },
+        {status: 201});
 }
 
 export async function GET() {
