@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { BsThreeDots as MenuIcon } from "react-icons/bs";
 import { Note } from "@/types/Note";
+import { File } from "lucide-react";
+import { useFont } from "@/hooks/useFont";
 
 interface NotesListProps {
   notes: Note[];
@@ -11,6 +13,7 @@ interface NotesListProps {
 const NotesList: React.FC<NotesListProps> = ({ notes }) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const { currentFont } = useFont();
 
   const notesToDisplay = isExpanded ? notes : notes.slice(0, 4);
 
@@ -20,9 +23,8 @@ const NotesList: React.FC<NotesListProps> = ({ notes }) => {
         <div key={index}>
           <Link href={`/notes/${note._id}`}>
             <div className="flex justify-start items-center my-2 note-item hover:bg-dark-300 hover:underline">
-              {/* <Image className="size-5 hover:bg-dark-300" src={note.icon} alt="icon" width={25} height={25} /> */}
-              <h5 className="text-base sm:text-xl md:text-2xl">{note.icon}</h5>
-              <h5 className="mx-3 text-base sm:text-xl md:text-2xl">{note.title}</h5>
+              {!!note.icon ? (<h5 className="text-base sm:text-xl md:text-2xl">{note.icon}</h5>) : <File />}
+              <h5 className="mx-3 text-base sm:text-lg md:text-xl">{note.title}</h5>
             </div>
           </Link>
         </div>

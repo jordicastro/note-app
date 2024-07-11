@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import {
   ChevronsLeft,
+  Ellipsis,
+  File,
   MenuIcon,
   Plus,
   Search,
@@ -19,7 +21,10 @@ import { useRouter } from "next/navigation";
 import { Note } from "@/types/Note";
 import Item from "./Item";
 import Link from "next/link";
-
+import { useSearch } from "@/hooks/useSearch";
+import { useSettings } from "@/hooks/useSettings";
+import { useFont } from "@/hooks/useFont";
+import NavNotesList from "./NavNotesList";
 
 
 
@@ -36,6 +41,13 @@ const Navigation = () => {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
   const [notes, setNotes] = useState<Note[]>([]);
+  const search = useSearch();
+  const settings = useSettings();
+  const { currentFont } = useFont();
+
+  useEffect( () => {
+    document.documentElement.style.setProperty('--current-font', `var(--font-${currentFont})`);
+  }, [currentFont]);
 
   useEffect( () => {
     const getNotes = async () => {
@@ -134,7 +146,7 @@ const Navigation = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: "Untitled", icon: "📄", content: "" }),
+      body: JSON.stringify({ title: "Untitled", icon: "", content: "" }),
     })
     if (!res.ok) {
       throw new Error("Failed to create note");
@@ -169,6 +181,17 @@ const Navigation = () => {
         <div>
             <UserItem />
             <Item
+              label="Search"
+              icon={Search}
+              isSearch
+              onClick={search.onOpen}
+            />
+            <Item
+              label="Settings"
+              icon={Settings}
+              onClick={settings.onOpen}
+            />
+            <Item
               onClick={createPage}
               label="New page"
               icon={Plus}
@@ -178,14 +201,7 @@ const Navigation = () => {
             <p className="px-2 text-muted-foreground font-bold" >
                 Notes
             </p>
-            {notes?.map((note) => (
-              <div key={note._id} className="hover:border border-primary/5 hover:bg-primary/5">
-                  <Link href={`/notes/${note._id}`} className="flex items-center gap-x-2 px-2 py-1 ">
-                    <p className="text-sm">{note.icon}</p>
-                    <p className="text-sm text-muted-foreground">{note.title}</p>
-                  </Link>
-              </div>
-            ) )}
+            <NavNotesList notes={notes} />
         </div>
         <div
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"

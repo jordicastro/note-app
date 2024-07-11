@@ -12,6 +12,7 @@ import NotesList from "./NotesList";
 import { Note } from "@/types/Note";
 
 import { useState, useEffect } from "react";
+import { useFont } from "@/hooks/useFont";
 
 interface HeroProps {
   notes: Note[];
@@ -23,6 +24,7 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
 
   const [greeting, setGreeting] = useState(greetings[0]);
   const [name, setName] = useState("Jordi");
+  const { currentFont } = useFont();
 
   useEffect(() => {
     const date = new Date();
@@ -38,14 +40,18 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
     }
   }, []);
 
+  useEffect( () => {
+    console.log(currentFont);
+  }, [currentFont]);
+
   return (
     <div className="px-[5%]">
       {/* conditional greeting  */}
       <div className="flex justify-center flex-row items-center space-x-3 my-7 mt-24">
-        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
+        <h1 className={`font-${currentFont} text-3xl sm:text-3xl md:text-4xl lg:text-5xl`}>
           {greeting}{" "}
         </h1>
-        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl">{name}</h1>
+        <h1 className={`font-${currentFont} text-3xl sm:text-3xl md:text-4xl lg:text-5xl`}>{name}</h1>
       </div>
       <section className="space-y-8">
         {/* list-or-grid view  */}
@@ -71,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
           </button>
           <button
             onClick={() => setView("grid")}
-            className={`size-8 ${view === "grid" && "brightness-50"}  object-contain hidden dark:block`}
+            className={`size-8 ${view === "grid" && "brightness-50"}  object-contain hidden dark:block font-`}
           >
             <Image src={gridButtonDark} alt="Grid Button Dark" />
           </button>

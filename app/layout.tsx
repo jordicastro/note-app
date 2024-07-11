@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ModeToggle } from "@/components/ModeToggle";
+import SearchCommand from "@/components/SearchCommand";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +33,8 @@ export default function RootLayout({
         >
           <div className="hidden"><ModeToggle/></div>
             <Toaster />
+            <ModalProvider />
+            <SearchCommand />
             <div>{children}</div>
 
         </ThemeProvider>

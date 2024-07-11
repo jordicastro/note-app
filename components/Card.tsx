@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({ icon, title, _id }) => {
         <div className="my-1">
           <h5 className="bg-dark-200 text-base sm:text-xl md:text-2xl">{icon}</h5>
         </div>
-        <h6 className="bg-dark-200 text-base sm:text-xl md:text-2xl overflow-hidden line-clamp-2">{title}</h6>
+        <h6 className="bg-dark-200 text-base sm:text-xl md:text-xl overflow-hidden line-clamp-2">{title}</h6>
       </Link>
   );
 };

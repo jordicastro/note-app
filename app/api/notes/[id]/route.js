@@ -17,6 +17,12 @@ export async function PUT(req, {params}) {
         await Note.findByIdAndUpdate(id, { title});
         return NextResponse.json({message: "Note (title) updated"}, {status: 200})
     }
+    if ('icon' in data) {
+        const { icon } = data;
+        await connectMongoDB();
+        await Note.findByIdAndUpdate(id, { icon });
+        return NextResponse.json({message: "Note (icon) updated"}, {status: 200})
+    }
     return NextResponse.json({message: "Invalid request"}, {status: 400})
 }
 
@@ -25,4 +31,11 @@ export async function GET(req, {params}) {
     await connectMongoDB();
     const note = await Note.findOne({_id: id});
     return NextResponse.json({note}, { status: 200 });
+}
+
+export async function DELETE(req, {params}) {
+    const { id } = params;
+    await connectMongoDB();
+    await Note.findByIdAndDelete(id);
+    return NextResponse.json({message: "Note deleted"}, {status: 200});
 }

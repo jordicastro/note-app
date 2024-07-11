@@ -6,7 +6,7 @@ import "@blocknote/mantine/style.css";
 import { Block, PartialBlock } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import { useTheme } from "next-themes";
-// lodash for debounce
+import "./styles.css";
 
 interface EditorProps {
     initialContent?: string;
@@ -34,6 +34,7 @@ const Editor = ({initialContent, id, onChange}: EditorProps) => {
           setBlocks(editor.document);
           onChange(JSON.stringify(blocks, null, 2));
         }}
+        data-theming-css-demo
       />
     </div>
   )

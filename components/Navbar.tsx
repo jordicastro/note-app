@@ -4,18 +4,11 @@ import { Note } from "@/types/Note";
 import Title from "@/components/Title";
 import Link from "next/link";
 import { RiHome5Line as HomeIcon } from "react-icons/ri";
-import { BsThreeDots as DotMenuIcon } from "react-icons/bs";
 import { ModeToggle } from "./ModeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import Menu from "@/components/Menu";
+import Line from "./Line";
 
 interface NavbarProps {
   icon?: string;
@@ -50,7 +43,7 @@ const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
 
   return (
     <>
-      <nav className="flex items-center gap-x-4 w-full mx-auto  py-2 px-3 bg-transparent z-99999">
+      <nav className="flex items-center gap-x-4 w-full mx-auto  py-2 px-3 bg-transparent z-[9999]">
           {isCollapsed && (
             <MenuIcon
               onClick={onResetWidth}
@@ -69,7 +62,7 @@ const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
           </div>
           <div className="flex justify-center items-center gap-x-2">
             <ModeToggle />
-            <DotMenuIcon size={20} />
+            <Menu />
           </div>
         </div>
       </nav>

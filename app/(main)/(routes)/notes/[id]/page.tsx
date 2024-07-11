@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Note } from "@/types/Note";
 import Navbar from "@/components/Navbar";
 import NoteTitle from "@/components/NoteTitle";
-import Editor from "@/components/Editor";
+import Editor from "@/components/blocknote/Editor";
 
 const NotePage = ({}) => {
   const [note, setNote] = useState<Note | null>(null);

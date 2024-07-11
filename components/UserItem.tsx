@@ -72,12 +72,12 @@ const UserItem = () => {
                     </div>
                 </div>
             </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-primary/10 mx-1"/>
 
         <DropdownMenuItem className="flex justify-center hover:cursor-not-allowed">
-            <div className="flex items-center gap-x-2 ">
-                <LogOut className="h-4 w-4 mr-2 text-muted-foreground" />
-                <p className="text-xs text-muted-foreground font-medium hover:text">
+            <div className="flex items-center justify-center gap-x-2 cursor-not-allowed group/logout">
+                <LogOut className="h-4 w-4 mr-2 text-muted-foreground group-hover/logout:text-red-400" />
+                <p className="text-sm text-muted-foreground font-medium group-hover/logout:text-red-400">
                     Log Out
                 </p>
             </div>

@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Note } from "@/types/Note";
+import { File } from "lucide-react";
 
 interface TitleProps {
     note: Note;
@@ -63,7 +64,7 @@ const Title = ({note}: TitleProps) => {
 
     return (
         <div className="flex items-center gap-x-1">
-            {!!note.icon && <p>{note.icon}</p>}
+            {!!note.icon ? (<p>{note.icon}</p>) : <File className="h-4 w-4" />}
             { isEditing ? (
                 <Input
                     ref={inputRef}
