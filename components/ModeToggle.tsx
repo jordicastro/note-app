@@ -18,22 +18,20 @@ export function ModeToggle() {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     setIsMounted(true);
-  }, [])
+  }, []);
 
-
-  useEffect( () => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "l" && (e.metaKey || e.ctrlKey) && e.shiftKey) {
         e.preventDefault();
-        setTheme( () => (theme === "light" ? "dark" : "light") )
+        setTheme(() => (theme === "light" ? "dark" : "light"));
       }
-    }
+    };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [theme, setTheme])
-
+  }, [theme, setTheme]);
 
   if (!isMounted) return null;
 
@@ -46,7 +44,7 @@ export function ModeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" >
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
