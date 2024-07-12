@@ -29,9 +29,7 @@ const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
 
   useEffect(() => {
     const getNote = async () => {
-      const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(`http://localhost:3000/api/notes/${id}`);
       if (!res.ok) {
         throw new Error("Failed to fetch note");
       }
