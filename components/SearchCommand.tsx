@@ -32,7 +32,7 @@ const SearchCommand = () => {
 
     useEffect( () => {
         const getNotes = async () => {
-          const res = await fetch(`http://localhost:3000/api/notes`, );
+          const res = await fetch(`/api/notes`, );
           if (!res.ok) {
             throw new Error("Failed to fetch notes");
           }

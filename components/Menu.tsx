@@ -147,7 +147,7 @@ const Menu = () => {
   };
 
   const onDelete = async () => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    const res = await fetch(`/api/notes/${id}`, {
       method: "DELETE",
     });
     if (!res.ok) {

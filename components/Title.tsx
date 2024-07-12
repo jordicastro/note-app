@@ -44,7 +44,7 @@ const Title = ({note}: TitleProps) => {
         if (event.key === "Enter") {
             disableInput();
             console.log('changing title: ', title)
-            const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+            const res = await fetch(`/api/notes/${id}`, {
                 method: "PUT",
                 headers: {
                 "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const NavNotesList = ({ notes }: NavNotesListProps) => {
   const router = useRouter();
 
   const onDelete = async (id: string) => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    const res = await fetch(`/api/notes/${id}`, {
       method: "DELETE",
     });
     if (!res.ok) {
@@ -36,7 +36,7 @@ const NavNotesList = ({ notes }: NavNotesListProps) => {
   };
 
   const createPage = async () => {
-    const res = await fetch("http://localhost:3000/api/notes", {
+    const res = await fetch("/api/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

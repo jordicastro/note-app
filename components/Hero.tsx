@@ -14,16 +14,15 @@ import { Note } from "@/types/Note";
 import { useState, useEffect } from "react";
 import { useFont } from "@/hooks/useFont";
 
-interface HeroProps {
-  notes: Note[];
-}
 
-const Hero: React.FC<HeroProps> = ({ notes }) => {
+
+const Hero = () => {
   const [view, setView] = useState("list");
   const greetings = ["Good morning, ", "Good afternoon, ", "Good evening, "];
 
   const [greeting, setGreeting] = useState(greetings[0]);
   const [name, setName] = useState("Jordi");
+  const [notes, setNotes] = useState<Note[]>([]);
   const { currentFont } = useFont();
 
   useEffect(() => {
@@ -43,6 +42,18 @@ const Hero: React.FC<HeroProps> = ({ notes }) => {
   useEffect( () => {
     console.log(currentFont);
   }, [currentFont]);
+
+  useEffect( () => {
+    const getNotes = async () => {
+      const res = await fetch(`/api/notes`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch notes");
+      }
+      const data = await res.json();
+      setNotes(data.notes);
+    }
+    getNotes();
+  }, [])
 
   return (
     <div className="px-[5%]">

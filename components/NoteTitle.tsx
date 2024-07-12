@@ -53,7 +53,7 @@ const NoteTitle: React.FC<NoteTitleProps> = ({ icon, title }) => {
   };
 
   const onIconSelect = async (icon: string) => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    const res = await fetch(`/api/notes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const NoteTitle: React.FC<NoteTitleProps> = ({ icon, title }) => {
   };
 
   const onRemoveIcon = async () => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    const res = await fetch(`/api/notes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const NoteTitle: React.FC<NoteTitleProps> = ({ icon, title }) => {
   };
 
   const updateTitle = async () => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    const res = await fetch(`/api/notes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
