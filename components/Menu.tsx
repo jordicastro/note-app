@@ -36,8 +36,13 @@ import {
 } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { useFont } from "@/hooks/useFont";
+import { deleteNoteById } from "@/actions/queries";
 
-const Menu = () => {
+interface MenuProps {
+  refreshNotes: () => void;
+}
+
+const Menu = ({ refreshNotes }: MenuProps) => {
   const { id } = useParams();
   const router = useRouter();
   const { currentFont, setCurrentFont } = useFont();
@@ -147,12 +152,9 @@ const Menu = () => {
   };
 
   const onDelete = async () => {
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "DELETE",
-    });
-    if (!res.ok) {
-      throw new Error("Failed to delete note");
-    }
+    await deleteNoteById(id as string);
+
+    await refreshNotes();
 
     toast.success("Note deleted successfully");
 

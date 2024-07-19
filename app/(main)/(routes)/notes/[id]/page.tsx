@@ -6,6 +6,7 @@ import { Note } from "@/types/Note";
 import Navbar from "@/components/Navbar";
 import NoteTitle from "@/components/NoteTitle";
 import Editor from "@/components/blocknote/Editor";
+import { changeNoteContentById, getNoteById } from "@/actions/queries";
 
 const NotePage = ({}) => {
   const [note, setNote] = useState<Note | null>(null);
@@ -14,28 +15,14 @@ const NotePage = ({}) => {
 
   useEffect(() => {
     const getNote = async () => {
-      const res = await fetch(`/api/notes/${id}`);
-      if (!res.ok) {
-        throw new Error("Failed to fetch note");
-      }
-      const data = await res.json();
+      const data = await getNoteById(id as string);
       setNote(data.note);
     };
     getNote();
   }, [id]);
 
   const onChange = async (content: string) => {
-    console.log('changing content')
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to update note");
-    }
+    await changeNoteContentById(id as string, content);
   };
 
   // wait 1 second after user stops typing to update note
@@ -45,7 +32,6 @@ const NotePage = ({}) => {
     <div className="pb-40 min-h-screen">
       {note && (
         <div>
-          {/* <Navbar icon={note.icon} title={note.title} /> */}
           <div className="md:max-w-4xl lg:max-w-5xl mx-auto space-y-16">
             <NoteTitle icon={note.icon} title={note.title} />
             <Editor id={note._id} initialContent={note.content} onChange={debounceOnChange} />

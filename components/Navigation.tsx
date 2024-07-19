@@ -26,6 +26,9 @@ import { useSettings } from "@/hooks/useSettings";
 import { useFont } from "@/hooks/useFont";
 import NavNotesList from "./NavNotesList";
 import { set } from "mongoose";
+import { createNote, getNotes } from "@/actions/queries";
+
+export const revalidate = 0;
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -50,19 +53,13 @@ const Navigation = () => {
     );
   }, [currentFont]);
 
-  useEffect(() => {
-    const getNotes = async () => {
-      const res = await fetch(`/api/notes`);
-      if (!res.ok) {
-        throw new Error("Failed to fetch notes");
-      }
-      const data = await res.json();
-
-      setNotes(data.notes);
-    };
-
-    getNotes();
-  }, []);
+  useEffect( () => {
+    const fetchNotes = async () => {
+      const data = await getNotes();
+      setNotes(data);
+    }
+    fetchNotes();
+  }, [router]);
 
   useEffect(() => {
     if (isMobile) {
@@ -151,21 +148,17 @@ const Navigation = () => {
   };
 
   const createPage = async () => {
-    const res = await fetch("/api/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: "Untitled", icon: "", content: "" }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to create note");
-    }
+    const data = await createNote();
 
-    const data = await res.json();
+    await refreshNotes();
 
     router.push(`/notes/${data.note._id}`);
   };
+
+  const refreshNotes = async () => {
+    const Notesdata = await getNotes();
+    setNotes(Notesdata);
+  }
 
   return (
     <>
@@ -212,7 +205,7 @@ const Navigation = () => {
         </div>
         <div className="mt-4">
           <p className="px-2 text-muted-foreground font-bold">Notes</p>
-          <NavNotesList notes={notes} />
+          <NavNotesList notes={notes} refreshNotes={refreshNotes}/>
         </div>
         <div
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
@@ -229,7 +222,7 @@ const Navigation = () => {
         )}
       >
         {!!params.id ? (
-          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} refreshNotes={refreshNotes}/>
         ) : (
           <nav className="bg-transparent px-3 py-4 w-full">
             {isCollapsed && (

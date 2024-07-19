@@ -15,6 +15,7 @@ import {
 
 import { useSearch } from "@/hooks/useSearch";
 import { Note } from "@/types/Note";
+import { getNotes } from "@/actions/queries";
 
 
 const SearchCommand = () => {
@@ -31,18 +32,12 @@ const SearchCommand = () => {
     }, []);
 
     useEffect( () => {
-        const getNotes = async () => {
-          const res = await fetch(`/api/notes`, );
-          if (!res.ok) {
-            throw new Error("Failed to fetch notes");
-          }
-           const data = await res.json();
-    
-           setNotes(data.notes);
+        const fetchNotes = async () => {
+          const data = await getNotes();
+          setNotes(data);
         }
-    
-        getNotes();
-    }, [])
+        fetchNotes();
+      }, [])
 
     useEffect( () => {
         const down = (e: KeyboardEvent) => {

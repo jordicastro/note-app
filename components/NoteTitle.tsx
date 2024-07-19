@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import TextareaAutosize from "react-textarea-autosize";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { updateIconById, updateTitleById } from "@/actions/queries";
 
 interface NoteTitleProps {
   icon: string;
@@ -53,48 +54,15 @@ const NoteTitle: React.FC<NoteTitleProps> = ({ icon, title }) => {
   };
 
   const onIconSelect = async (icon: string) => {
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ icon: icon }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to update note");
-    } else {
-      console.log("icon updated");
-    }
+    await updateIconById(id as string, icon);
   };
 
   const onRemoveIcon = async () => {
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ icon: "" }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to update note");
-    } else {
-      console.log("icon removed");
-    }
+    await updateIconById(id as string, "");
   };
 
   const updateTitle = async () => {
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: value }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to update note");
-    } else {
-      console.log("note updated");
-    }
+    await updateTitleById(id as string, value);
   };
 
   return (

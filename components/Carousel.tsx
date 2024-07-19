@@ -34,7 +34,7 @@ const Carousel: React.FC<CarouselProps> = ({ notes }) => {
         <CarouselContent>
           {notesChunks.map((chunk, index) => (
             <CarouselItem key={index}>
-              <div className='flex justify-center items-center gap-[4vw]'>
+              <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-8'>
                 {chunk.map((note) => (
                   <Card key={index} title={note.title} icon={note.icon}  _id={note._id} />
                 ))}

@@ -14,40 +14,31 @@ import {
 import { ConfirmModal } from "./modal/ConfirmModal";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createNote, deleteNoteById } from "@/actions/queries";
 
 interface NavNotesListProps {
   notes: Note[];
+
+  refreshNotes: () => void;
 }
 
-const NavNotesList = ({ notes }: NavNotesListProps) => {
+const NavNotesList = ({ notes, refreshNotes }: NavNotesListProps) => {
   const router = useRouter();
 
   const onDelete = async (id: string) => {
-    const res = await fetch(`/api/notes/${id}`, {
-      method: "DELETE",
-    });
-    if (!res.ok) {
-      throw new Error("Failed to delete note");
-    }
+    await deleteNoteById(id as string);
 
     toast.success("Note deleted successfully");
+
+    await refreshNotes();
 
     router.push("/");
   };
 
   const createPage = async () => {
-    const res = await fetch("/api/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: "Untitled", icon: "", content: "" }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to create note");
-    }
+    const data = await createNote();
 
-    const data = await res.json();
+    refreshNotes();
 
     router.push(`/notes/${data.note._id}`);
   };

@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Note } from "@/types/Note";
 import { File } from "lucide-react";
+import { updateTitleById } from "@/actions/queries";
 
 interface TitleProps {
     note: Note;
@@ -43,17 +44,7 @@ const Title = ({note}: TitleProps) => {
     ) => {
         if (event.key === "Enter") {
             disableInput();
-            console.log('changing title: ', title)
-            const res = await fetch(`/api/notes/${id}`, {
-                method: "PUT",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ title }),
-            });
-            if (!res.ok) {
-                throw new Error("Failed to update note");
-            }
+            await updateTitleById(id as string, title);
             router.refresh();
         }
     }

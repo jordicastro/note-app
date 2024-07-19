@@ -9,15 +9,17 @@ import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import Menu from "@/components/Menu";
 import Line from "./Line";
+import { getNoteById } from "@/actions/queries";
 
 interface NavbarProps {
   icon?: string;
   title?: string;
   isCollapsed: boolean;
   onResetWidth: () => void;
+  refreshNotes: () => void;
 }
 
-const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
+const Navbar = ({ icon, title, isCollapsed, onResetWidth, refreshNotes }: NavbarProps) => {
   const tempNote: Note = {
     _id: "1",
     title: "Untitled",
@@ -29,11 +31,7 @@ const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
 
   useEffect(() => {
     const getNote = async () => {
-      const res = await fetch(`/api/notes/${id}`);
-      if (!res.ok) {
-        throw new Error("Failed to fetch note");
-      }
-      const data = await res.json();
+      const data = await getNoteById(id as string);
       setNote(data.note);
     };
     getNote();
@@ -60,7 +58,7 @@ const Navbar = ({ icon, title, isCollapsed, onResetWidth }: NavbarProps) => {
           </div>
           <div className="flex justify-center items-center gap-x-2">
             <ModeToggle />
-            <Menu />
+            <Menu refreshNotes={refreshNotes}/>
           </div>
         </div>
       </nav>
