@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <section className="flex justify-between items-center w-full mb-1 mt-[20vw] px-3 py-1 z-10 bg-transparent">
         <Link href="https://jordicastro.github.io/">
-            <h6>Jordi Castro</h6>
+            <h6 className='text-sm '>Jordi Castro</h6>
         </Link>
 
         <div className='flex gap-2'>

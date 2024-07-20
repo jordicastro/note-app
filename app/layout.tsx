@@ -14,6 +14,20 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Note App",
   description: "A Note app built with Next.js + Tailwind CSS + MongoDB",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme:light)",
+        url: "/assets/favicon.svg",
+        href: "/assets/favicon.svg",
+      },
+      {
+        media: "(prefers-color-scheme:dark)",
+        url: "/assets/favicon-dark.svg",
+        href: "/assets/favicon-dark.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
